@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View, TextInput,TouchableOpacity, Alert } from 'react-native'
 import React from 'react'
 import axios from 'axios';
+import { authContext } from '../App';
 
 //redux
-import { useDispatch } from 'react-redux';
-import { setUser } from '../redux/userActions';
+// import { useDispatch } from 'react-redux';
+// import { setUser } from '../redux/userActions';
 
 export default function Login({navigation}) {
     const[userData,setUserData] = React.useState({
@@ -12,8 +13,9 @@ export default function Login({navigation}) {
         password:''
     });
 
+    const {saveUser} = React.useContext(authContext); 
     //redux
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
     const handleChange = (name,value)=>{
         setUserData(
@@ -32,8 +34,9 @@ export default function Login({navigation}) {
                 Alert.alert("Wrong email/password")
             }else{
                 //redux
-                dispatch(setUser(res.data[0]));
-                navigation.navigate('App');
+                // dispatch(setUser(res.data[0]));
+                saveUser('vishal');
+                // navigation.navigate('App');
             }
         }catch(err){
             console.log(err);

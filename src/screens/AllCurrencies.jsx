@@ -5,7 +5,8 @@ import Card from '../Components/Card';
 
 //redux
 import { useDispatch, useSelector } from 'react-redux';
-import { addFavourite } from '../redux/favouriteActions';
+import { addToFavourites } from '../redux/favouritesReducer';
+// import { addFavourite } from '../redux/favouriteActions';
 
 export default function Currencies({ navigation }) {
     const [currData, setCurrData] = React.useState([]);
@@ -14,8 +15,9 @@ export default function Currencies({ navigation }) {
 
     //redux functions
     const dispatch = useDispatch();
-    const favourites = useSelector((state) => state.favourites.favourites);
+    const favourites = useSelector((state) => state.favourites);
 
+    console.log(favourites);
     //get all currency data from api
     const getData = async () => {
         const res = await axios.get('https://api.coinranking.com/v2/coins', {
@@ -97,7 +99,7 @@ export default function Currencies({ navigation }) {
                                         
                                     {!isFavourite(item.uuid) ?
                                         <TouchableOpacity
-                                        onPress={() => dispatch(addFavourite(item))}
+                                        onPress={() => dispatch(addToFavourites(item))}
                                         >
                                             <Image
                                                 source={require('../images/star.png')}

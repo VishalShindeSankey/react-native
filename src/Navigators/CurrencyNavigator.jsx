@@ -5,16 +5,16 @@ import React from 'react'
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 const Stack= createNativeStackNavigator();
 
-import Currencies from './screens/Currencies';
-import CurrencyDetails from './screens/CurrencyDetails';
-import Favourites from './screens/Favourites';
+import AllCurrencies from '../screens/AllCurrencies';
+import CurrencyDetails from '../screens/CurrencyDetails';
+import Favourites from '../screens/Favourites';
 
-export default function AllCurrency() {
+export default function CurrencyNavigator() {
   return (
-    <Stack.Navigator initialRouteName='Currencies'>
+    <Stack.Navigator initialRouteName='AllCurrencies'>
         <Stack.Screen
-            name='Currencies'
-            component={Currencies}
+            name='AllCurrencies'
+            component={AllCurrencies}
         />
 
         <Stack.Screen

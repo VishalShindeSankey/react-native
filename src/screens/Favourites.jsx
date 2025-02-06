@@ -1,14 +1,14 @@
 import { ScrollView, StyleSheet, Text, View, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
-import { SvgUri } from 'react-native-svg'
 import Card from '../Components/Card';
 //redux
 import { useSelector, useDispatch } from 'react-redux';
-import { removeFavourite } from '../redux/favouriteActions';
+// import { removeFavourite } from '../redux/favouriteActions';
+import { removeFromFavourites } from '../redux/favouritesReducer';
 
 
 export default function Favourites({ navigation }) {
-  const favourites = useSelector((state) => state.favourites.favourites);
+  const favourites = useSelector((state) => state.favourites);
   const dispatch = useDispatch();
 
   return (
@@ -21,40 +21,17 @@ export default function Favourites({ navigation }) {
 
         <ScrollView>
           {favourites.map((cardItem) => {
-            const imgUrl = encodeURI(cardItem.iconUrl.split('?')[0]);
+            // const imgUrl = encodeURI(cardItem.iconUrl.split('?')[0]);
 
             return (
-              <TouchableOpacity
-                activeOpacity={0.8}
-                onPress={() => navigation.navigate('CurrencyDetails', { currId: cardItem.uuid })}
-              >
+              // <TouchableOpacity
+              //   activeOpacity={0.8}
+              //   onPress={() => navigation.navigate('CurrencyDetails', { currId: cardItem.uuid })}
+              // >
 
-                <View style={styles.cardContainer}>
+                <View style={styles.cardContainer} key={cardItem.uuid}>
 
-                  {/* {imgUrl.endsWith('.svg') ?
-                      <SvgUri
-                        width={100}
-                        height={100}
-                        uri={imgUrl}
-                      />
-                      : <Image source={{ uri: imgUrl }} style={styles.currImg} />
-                  }
-
-                  <View style={styles.cardText}>
-                    <Text style={styles.cardName}>{cardItem.name}</Text>
-                    <Text style={cardItem.change > 0 ? styles.changeGreen : styles.changeRed}>{cardItem.change}</Text>
-                  </View>
-
-                  <TouchableOpacity
-                    onPress={() => dispatch(removeFavourite(cardItem.uuid))}
-                  >
-                    <Image
-                      source={require('../images/removeStar.png')}
-                      style={{ width: 15, height: 15 }}
-                    />
-                  </TouchableOpacity> */}
-
-                  <View key={cardItem.uuid} style={styles.cardRow}>
+                  <View  style={styles.cardRow}>
                     <TouchableOpacity
                       activeOpacity={0.8}
                       onPress={() => navigation.navigate('CurrencyDetails', { currId: cardItem.uuid })}
@@ -64,10 +41,11 @@ export default function Favourites({ navigation }) {
                     </TouchableOpacity>
 
                   </View>
+
                   <View style={styles.removeStar}>
 
                     <TouchableOpacity
-                      onPress={() => dispatch(removeFavourite(cardItem.uuid))}
+                      onPress={() => dispatch(removeFromFavourites(cardItem.uuid))}
                     >
                       <Image
                         source={require('../images/removeStar.png')}
@@ -77,7 +55,7 @@ export default function Favourites({ navigation }) {
                   </View>
 
                 </View>
-              </TouchableOpacity>
+              // </TouchableOpacity>
             )
           })}
         </ScrollView>
